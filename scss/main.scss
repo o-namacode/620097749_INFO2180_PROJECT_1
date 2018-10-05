@@ -1,6 +1,7 @@
 @import "imports";
 @import "variables";
 @import "fonts";
+@import "mixins";
 @import 'vendor/normalize';
 
 body {
@@ -9,6 +10,7 @@ body {
     background: $backgroundColor;
     color: $textColor;
     padding: 0;
+    transition: all 1s;
     
     a {
         color: $linkColor;
@@ -54,7 +56,15 @@ body {
     main {
         margin: 0;
         display: grid;
-        grid-template-columns: 20% 80%;
+        grid-template-columns: 30% 70%;
+    
+        @include breakpoint(tablet) {
+            grid-template-columns: 40% 60%;
+        }
+    
+        @include breakpoint(mobileonly) {
+            display: block;
+        }
         
         h3 {
             @extend .font__julius;
@@ -68,25 +78,48 @@ body {
             display: inline-grid;
             grid-template-columns: 20% 80%;
             
+            @include breakpoint(mobileonly) {
+                display: inline-block;
+                padding: 1em 1.5em;
+            }
+            
             &:nth-child(even) {
                 background: darken($backgroundColor, 3);
+                
+                @include breakpoint(mobileonly) {
+                    background: darken($backgroundColor, 1);
+                }
             }
             
             &:last-child {
                 border-bottom: none;
                 margin: 0 auto;
             }
+            
             .info-list-item-left-data, .info-list-item-right-data {
                 @extend .font__poiret;
                 font-weight: bold;
                 font-size: 14pt;
+                
+                @include breakpoint(mobileonly) {
+                    font-size: 12pt;
+                    display: block;
+                }
             }
             .info-list-item-left-data {
                 font-size: 12pt;
+                @include breakpoint(mobileonly) {
+                    display: none;
+                    font-size: 10pt;
+                }
             }
             .info-list-item-content {
                 grid-column-start: 2;
                 grid-column-end: 3;
+                
+                @include breakpoint(mobileonly) {
+                    display: block;
+                }
             }
         }
         
@@ -112,7 +145,14 @@ body {
                         margin: 0 auto 3em;
                         .profile-image {
                             border-radius: 50%;
-                            width: 15em;
+                            width: 15vw;
+                            
+                            @include breakpoint(mobileonly) {
+                                width: 50%;
+                            }
+                            @include breakpoint(tiny) {
+                                width: 100%;
+                            }
                         }
                     }
                     
